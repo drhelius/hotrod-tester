@@ -5,6 +5,8 @@ import org.infinispan.client.hotrod.RemoteCacheManager;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Random;
+
 import static org.springframework.web.bind.annotation.RequestMethod.GET;
 
 @RestController
@@ -18,7 +20,7 @@ public class Tester {
     public String health() {
 
         if (rcm.isStarted())
-            return "Cache Manager is started!";
+            return "Cache Manager is started! " + rcm.getConfiguration().toString();
         else
             return "Cache Manager is not started";
     }
@@ -56,14 +58,22 @@ public class Tester {
             @RequestParam(value = "size", required=false) Integer entrySize,
             @RequestParam(value = "minkey", required=false) Integer entryMinkey) {
 
-        RemoteCache<String, String> cache = rcm.getCache(cacheName);
+        RemoteCache<String, byte[]> cache = rcm.getCache(cacheName);
 
         int min = 0;
         if (entryMinkey != null)
             min = entryMinkey;
 
+        int size = 1024;
+        if (entrySize != null)
+            size = entrySize;
+
         for (int i=min; i<(min + numEntries) ; i++) {
-            cache.put(Integer.toString(i), "test");
+
+            byte[] bytes = new byte[size];
+            new Random().nextBytes(bytes);
+
+            cache.put(Integer.toString(i), bytes);
         }
 
         return "OK " + numEntries + " " + entrySize + " " + entryMinkey;
