@@ -69,10 +69,11 @@ public class Tester {
             size = entrySize;
 
         byte[] bytes = new byte[size];
+        Random rnd = new Random();
 
         for (int i=min; i<(min + numEntries) ; i++) {
-            
-            new Random().nextBytes(bytes);
+
+            rnd.nextBytes(bytes);
 
             cache.put(Integer.toString(i), bytes);
         }
