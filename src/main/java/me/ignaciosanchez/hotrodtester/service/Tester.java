@@ -68,9 +68,10 @@ public class Tester {
         if (entrySize != null)
             size = entrySize;
 
-        for (int i=min; i<(min + numEntries) ; i++) {
+        byte[] bytes = new byte[size];
 
-            byte[] bytes = new byte[size];
+        for (int i=min; i<(min + numEntries) ; i++) {
+            
             new Random().nextBytes(bytes);
 
             cache.put(Integer.toString(i), bytes);
