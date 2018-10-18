@@ -41,10 +41,15 @@ public class Tester {
     }
 
 
-    @RequestMapping(
-            value = "/api/cache/{cache}/put",
-            method = GET)
-    @ResponseBody
+    @GetMapping("/api/cache/{cache}/stats")
+    public String stats(
+            @PathVariable(value = "cache") String cacheName) {
+
+        return rcm.getCache(cacheName).stats().toString();
+    }
+
+
+    @GetMapping("/api/cache/{cache}/put")
     public String put(
             @PathVariable(value = "cache") String cacheName,
             @RequestParam(value = "entries") int numEntries,
@@ -64,10 +69,7 @@ public class Tester {
         return "OK " + numEntries + " " + entrySize + " " + entryMinkey;
     }
 
-    @RequestMapping(
-            value = "/api/cache/{cache}/get",
-            method = GET)
-    @ResponseBody
+    @GetMapping("/api/cache/{cache}/get")
     public String get(
             @PathVariable(value = "cache") String cacheName,
             @RequestParam(value = "entries") int numEntries,
@@ -86,10 +88,7 @@ public class Tester {
         return "OK " + numEntries + " " + entryMinkey;
     }
 
-    @RequestMapping(
-            value = "/api/cache/{cache}/remove",
-            method = GET)
-    @ResponseBody
+    @GetMapping("/api/cache/{cache}/remove")
     public String remove(
             @PathVariable(value = "cache") String cacheName,
             @RequestParam(value = "entries") int numEntries,
