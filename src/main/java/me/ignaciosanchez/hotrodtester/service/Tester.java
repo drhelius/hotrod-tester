@@ -100,6 +100,16 @@ public class Tester {
         return "OK " + numEntries + " " + entryMinkey;
     }
 
+    @GetMapping("/api/cache/{cache}/get-single")
+    public String getSingle(
+            @PathVariable(value = "cache") String cacheName,
+            @RequestParam(value = "key") int key) {
+
+        RemoteCache<String, String> cache = rcm.getCache(cacheName);
+
+        return cache.get(Integer.toString(key));
+    }
+
     @GetMapping("/api/cache/{cache}/remove")
     public String remove(
             @PathVariable(value = "cache") String cacheName,
