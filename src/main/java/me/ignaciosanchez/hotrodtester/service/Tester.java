@@ -13,17 +13,36 @@ public class Tester {
     @Autowired
     RemoteCacheManager rcm;
 
+
     @GetMapping("/api/health")
-    public String getHealth() {
+    public String health() {
 
         if (rcm.isStarted())
-            return "OK!";
+            return "Cache Manager is started!";
         else
-            return "KO!";
+            return "Cache Manager is not started";
     }
 
+
+    @GetMapping("/api/reset")
+    public String reset() {
+
+        rcm.stop();
+        rcm.start();
+
+        return "Cache Manager restarted";
+    }
+
+
+    @GetMapping("/api/cache")
+    public String caches() {
+
+        return rcm.getCacheNames().toString();
+    }
+
+
     @RequestMapping(
-            value = "/api/{cache}/put",
+            value = "/api/cache/{cache}/put",
             method = GET)
     @ResponseBody
     public String put(
@@ -46,7 +65,7 @@ public class Tester {
     }
 
     @RequestMapping(
-            value = "/api/{cache}/get",
+            value = "/api/cache/{cache}/get",
             method = GET)
     @ResponseBody
     public String get(
@@ -62,6 +81,28 @@ public class Tester {
 
         for (int i=min; i<(min + numEntries) ; i++) {
             cache.get(Integer.toString(i));
+        }
+
+        return "OK " + numEntries + " " + entryMinkey;
+    }
+
+    @RequestMapping(
+            value = "/api/cache/{cache}/remove",
+            method = GET)
+    @ResponseBody
+    public String remove(
+            @PathVariable(value = "cache") String cacheName,
+            @RequestParam(value = "entries") int numEntries,
+            @RequestParam(value = "minkey", required=false) Integer entryMinkey) {
+
+        RemoteCache<String, String> cache = rcm.getCache(cacheName);
+
+        int min = 0;
+        if (entryMinkey != null)
+            min = entryMinkey;
+
+        for (int i=min; i<(min + numEntries) ; i++) {
+            cache.remove(Integer.toString(i));
         }
 
         return "OK " + numEntries + " " + entryMinkey;
