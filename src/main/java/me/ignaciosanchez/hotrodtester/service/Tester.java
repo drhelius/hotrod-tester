@@ -45,7 +45,7 @@ public class Tester {
     public String stats(
             @PathVariable(value = "cache") String cacheName) {
 
-        return rcm.getCache(cacheName).stats().toString();
+        return rcm.getCache(cacheName).stats().getStatsMap().toString();
     }
 
 
