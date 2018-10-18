@@ -5,6 +5,7 @@ import org.infinispan.client.hotrod.RemoteCacheManager;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Arrays;
 import java.util.Random;
 
 import static org.springframework.web.bind.annotation.RequestMethod.GET;
@@ -107,7 +108,7 @@ public class Tester {
 
         RemoteCache<String, byte[]> cache = rcm.getCache(cacheName);
 
-        return cache.get(Integer.toString(key)).toString();
+        return Arrays.toString(cache.get(Integer.toString(key)));
     }
 
     @GetMapping("/api/cache/{cache}/remove")
