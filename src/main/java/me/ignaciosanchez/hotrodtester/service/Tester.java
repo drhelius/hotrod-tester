@@ -107,7 +107,7 @@ public class Tester {
 
         RemoteCache<String, String> cache = rcm.getCache(cacheName);
 
-        return cache.get(Integer.toString(key));
+        return cache.get(Integer.toString(key)).toString();
     }
 
     @GetMapping("/api/cache/{cache}/remove")
