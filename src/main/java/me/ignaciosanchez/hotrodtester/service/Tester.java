@@ -87,7 +87,7 @@ public class Tester {
             @RequestParam(value = "entries") int numEntries,
             @RequestParam(value = "minkey", required=false) Integer entryMinkey) {
 
-        RemoteCache<String, String> cache = rcm.getCache(cacheName);
+        RemoteCache<String, byte[]> cache = rcm.getCache(cacheName);
 
         int min = 0;
         if (entryMinkey != null)
@@ -105,7 +105,7 @@ public class Tester {
             @PathVariable(value = "cache") String cacheName,
             @RequestParam(value = "key") int key) {
 
-        RemoteCache<String, String> cache = rcm.getCache(cacheName);
+        RemoteCache<String, byte[]> cache = rcm.getCache(cacheName);
 
         return cache.get(Integer.toString(key)).toString();
     }
@@ -116,7 +116,7 @@ public class Tester {
             @RequestParam(value = "entries") int numEntries,
             @RequestParam(value = "minkey", required=false) Integer entryMinkey) {
 
-        RemoteCache<String, String> cache = rcm.getCache(cacheName);
+        RemoteCache<String, byte[]> cache = rcm.getCache(cacheName);
 
         int min = 0;
         if (entryMinkey != null)
