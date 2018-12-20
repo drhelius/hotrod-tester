@@ -69,7 +69,8 @@ public class Tester {
                     .maxIdle(120000L)
                 .build();
 
-        rcm.administration().getOrCreateCache(cacheName, config);
+        //rcm.administration().getOrCreateCache(cacheName, config);
+        rcm.administration().getOrCreateCache(cacheName, new XMLStringConfiguration(config.toXMLString()));
 
         return rcm.getCache(cacheName).stats().getStatsMap().toString();
     }
