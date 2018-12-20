@@ -5,6 +5,7 @@ import org.infinispan.client.hotrod.RemoteCacheManager;
 import org.infinispan.configuration.cache.CacheMode;
 import org.infinispan.configuration.cache.Configuration;
 import org.infinispan.configuration.cache.ConfigurationBuilder;
+import org.infinispan.eviction.EvictionStrategy;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -58,14 +59,14 @@ public class Tester {
     @GetMapping("/api/cache/{cache}/create")
     public String create(
             @PathVariable(value = "cache") String cacheName) {
-         
-        Configuration config = new ConfigurationBuilder()
+
+        Configuration config = new ConfigurationBuilder().simpleCache(true)
                 .clustering().cacheMode(CacheMode.DIST_ASYNC)
                 .memory()
-                .size(20000)
+                    .size(20000)
                 .expiration()
-                .wakeUpInterval(5000L)
-                .maxIdle(120000L)
+                    .wakeUpInterval(5000L)
+                    .maxIdle(120000L)
                 .build();
 
         rcm.administration().getOrCreateCache(cacheName, config);
