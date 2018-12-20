@@ -2,13 +2,17 @@ package me.ignaciosanchez.hotrodtester.service;
 
 import org.infinispan.client.hotrod.RemoteCache;
 import org.infinispan.client.hotrod.RemoteCacheManager;
+import org.infinispan.configuration.cache.CacheMode;
+import org.infinispan.configuration.cache.Configuration;
+import org.infinispan.configuration.cache.ConfigurationBuilder;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
 
 import java.util.Arrays;
 import java.util.Random;
-
-import static org.springframework.web.bind.annotation.RequestMethod.GET;
 
 @RestController
 public class Tester {
@@ -47,6 +51,17 @@ public class Tester {
     @GetMapping("/api/cache/{cache}/stats")
     public String stats(
             @PathVariable(value = "cache") String cacheName) {
+
+        return rcm.getCache(cacheName).stats().getStatsMap().toString();
+    }
+
+    @GetMapping("/api/cache/{cache}/create")
+    public String create(
+            @PathVariable(value = "cache") String cacheName) {
+        ConfigurationBuilder cb = new ConfigurationBuilder();
+        cb.clustering().cacheMode(CacheMode.REPL_SYNC).;
+
+        rcm.administration().getOrCreateCache(cacheName, cb.build());
 
         return rcm.getCache(cacheName).stats().getStatsMap().toString();
     }
