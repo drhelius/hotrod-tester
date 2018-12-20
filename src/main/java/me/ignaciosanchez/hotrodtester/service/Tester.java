@@ -59,7 +59,7 @@ public class Tester {
     public String create(
             @PathVariable(value = "cache") String cacheName) {
         ConfigurationBuilder cb = new ConfigurationBuilder();
-        cb.clustering().cacheMode(CacheMode.REPL_SYNC).;
+        cb.clustering().cacheMode(CacheMode.REPL_SYNC);
 
         rcm.administration().getOrCreateCache(cacheName, cb.build());
 
