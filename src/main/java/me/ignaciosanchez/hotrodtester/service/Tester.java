@@ -60,7 +60,7 @@ public class Tester {
     public String create(
             @PathVariable(value = "cache") String cacheName) {
 
-        Configuration config = new ConfigurationBuilder().simpleCache(true)
+        Configuration config = new ConfigurationBuilder()
                 .clustering().cacheMode(CacheMode.DIST_ASYNC)
                 .memory()
                     .size(20000)
