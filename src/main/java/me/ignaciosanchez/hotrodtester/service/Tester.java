@@ -58,10 +58,17 @@ public class Tester {
     @GetMapping("/api/cache/{cache}/create")
     public String create(
             @PathVariable(value = "cache") String cacheName) {
-        ConfigurationBuilder cb = new ConfigurationBuilder();
-        cb.clustering().cacheMode(CacheMode.REPL_SYNC);
+         
+        Configuration config = new ConfigurationBuilder()
+                .clustering().cacheMode(CacheMode.DIST_ASYNC)
+                .memory()
+                .size(20000)
+                .expiration()
+                .wakeUpInterval(5000L)
+                .maxIdle(120000L)
+                .build();
 
-        rcm.administration().getOrCreateCache(cacheName, cb.build());
+        rcm.administration().getOrCreateCache(cacheName, config);
 
         return rcm.getCache(cacheName).stats().getStatsMap().toString();
     }
