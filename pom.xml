@@ -20,9 +20,9 @@
 		<commons-logging.version>1.2</commons-logging.version>
 		<junit.version>4.12</junit.version>
 		<openjdk18-openshift.version>1.3</openjdk18-openshift.version>
-		<spring-boot-bom.version>1.5.15.Final-redhat-00002</spring-boot-bom.version>
-		<spring-boot.version>1.5.15.RELEASE</spring-boot.version>
-		<infinispan.version>8.5.3.Final-redhat-00002</infinispan.version>
+		<spring-boot-bom.version>2.1.0.RELEASE</spring-boot-bom.version>
+		<spring-boot.version>2.1.0.RELEASE</spring-boot.version>
+		<infinispan.version>10.0.0.Alpha2</infinispan.version>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 		<java.version>1.8</java.version>
@@ -31,8 +31,8 @@
 	<dependencyManagement>
 		<dependencies>
 			<dependency>
-				<groupId>me.snowdrop</groupId>
-				<artifactId>spring-boot-bom</artifactId>
+				<groupId>org.springframework.boot</groupId>
+				<artifactId>spring-boot-dependencies</artifactId>
 				<version>${spring-boot-bom.version}</version>
 				<type>pom</type>
 				<scope>import</scope>
@@ -81,11 +81,13 @@
 		</dependency>
 		<dependency>
 			<groupId>org.infinispan</groupId>
-			<artifactId>infinispan-spring4-common</artifactId>
+			<artifactId>infinispan-spring5-common</artifactId>
+			<version>${infinispan.version}</version>
 		</dependency>
 		<dependency>
 			<groupId>org.infinispan</groupId>
-			<artifactId>infinispan-spring4-remote</artifactId>
+			<artifactId>infinispan-spring5-remote</artifactId>
+			<version>${infinispan.version}</version>
 		</dependency>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
@@ -131,7 +133,7 @@
 		</plugins>
 	</build>
 
-	<repositories>
+	<!-- <repositories>
 		<repository>
 			<id>redhat-ga</id>
 			<name>Red Hat GA Repository</name>
@@ -145,6 +147,6 @@
 			<name>Red Hat GA Repository</name>
 			<url>https://maven.repository.redhat.com/ga/</url>
 		</pluginRepository>
-	</pluginRepositories>
+	</pluginRepositories> -->
 
 </project>
