@@ -3,6 +3,7 @@ package me.ignaciosanchez.hotrodtester.service;
 import org.infinispan.client.hotrod.RemoteCache;
 import org.infinispan.client.hotrod.RemoteCacheManager;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -148,6 +149,19 @@ public class Tester {
         }
 
         return "OK " + numEntries + " " + entryMinkey;
+    }
+
+    @GetMapping("/api/cache/spring/get")
+    public String springGet(@PathVariable(value = "key") String key) {
+
+        this.getKey(key);
+
+        return "OK " + key;
+    }
+
+    @Cacheable("spring")
+    private String getKey(String key) {
+        return "not cached";
     }
 
     // putcron, cron, n, minkey, maxkey
