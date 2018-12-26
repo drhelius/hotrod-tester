@@ -3,7 +3,6 @@ package me.ignaciosanchez.hotrodtester.service;
 import org.infinispan.client.hotrod.RemoteCache;
 import org.infinispan.client.hotrod.RemoteCacheManager;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.cache.annotation.Cacheable;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -16,6 +15,9 @@ import java.util.Random;
 public class Tester {
 
     @Autowired
+    SpringCache sc;
+
+    @Autowired
     RemoteCacheManager rcm;
 
 
@@ -23,9 +25,9 @@ public class Tester {
     public String health() {
 
         if (rcm.isStarted())
-            return "Cache Manager is started! " + rcm.getConfiguration().toString();
+            return "SpringCache Manager is started! " + rcm.getConfiguration().toString();
         else
-            return "Cache Manager is not started";
+            return "SpringCache Manager is not started";
     }
 
 
@@ -35,7 +37,7 @@ public class Tester {
         rcm.stop();
         rcm.start();
 
-        return "Cache Manager restarted";
+        return "SpringCache Manager restarted";
     }
 
 
@@ -151,18 +153,13 @@ public class Tester {
         return "OK " + numEntries + " " + entryMinkey;
     }
 
-    @GetMapping("/api/cache/spring/get")
-    public String springGet(@PathVariable(value = "key") String key) {
+    @GetMapping("/api/spring")
+    public String springGet(@RequestParam(value = "key") String key) {
 
-        this.getKey(key);
-
-        return "OK " + key;
+        return "OK " + sc.getKey(key).toString();
     }
 
-    @Cacheable("spring")
-    private String getKey(String key) {
-        return "not cached";
-    }
+
 
     // putcron, cron, n, minkey, maxkey
 }
