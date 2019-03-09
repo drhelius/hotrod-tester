@@ -22,8 +22,8 @@ public class Config {
     @Value("${datagrid.port}")
     private String port;
 
-    @Value("${hotrod.version}")
-    private String version;
+    @Value("${hotrod.protocol}")
+    private String protocol;
 
     @Value("${datagrid.near-cache}")
     private boolean nearCache;
@@ -41,7 +41,7 @@ public class Config {
     public RemoteCacheManager infinispanCacheManager() {
 
         ConfigurationBuilder builder = new ConfigurationBuilder();
-        builder.version(ProtocolVersion.parseVersion(version))
+        builder.version(ProtocolVersion.parseVersion(protocol))
                 .addServer()
                 .host(host)
                 .port(Integer.parseInt(port));
