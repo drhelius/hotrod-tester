@@ -40,17 +40,15 @@ public class Config {
     @Bean
     public RemoteCacheManager infinispanCacheManager() {
 
-        ConfigurationBuilder builder = new ConfigurationBuilder();
-        builder.statistics().enable()
+        ConfigurationBuilder config = new ConfigurationBuilder();
+        config.statistics().enable().jmxEnable()
                 .version(ProtocolVersion.parseVersion(protocol))
-                .addServer()
-                .host(host)
-                .port(Integer.parseInt(port));
+                .addServer().host(host).port(Integer.parseInt(port));
 
         if (nearCache) {
-            builder.nearCache().mode(NearCacheMode.INVALIDATED).maxEntries(nearCacheSize);
+            config.nearCache().mode(NearCacheMode.INVALIDATED).maxEntries(nearCacheSize);
         }
 
-        return new RemoteCacheManager(builder.build());
+        return new RemoteCacheManager(config.build());
     }
 }
