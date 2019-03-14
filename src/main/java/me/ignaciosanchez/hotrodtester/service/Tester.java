@@ -52,7 +52,7 @@ public class Tester {
     public String stats(
             @PathVariable(value = "cache") String cacheName) {
 
-        return rcm.getCache(cacheName).serverStatistics().getStatsMap().toString();
+        return rcm.getCache(cacheName).serverStatistics().getStatsMap().toString() + "\n\n\n" + rcm.getCache(cacheName).clientStatistics().getAverageRemoteStoreTime();
     }
 
     @GetMapping("/api/cache/{cache}/create")
