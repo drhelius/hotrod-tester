@@ -1,4 +1,4 @@
-package me.ignaciosanchez.hotrodtester.service;
+package me.ignaciosanchez.hotrodtester.controller;
 
 import org.infinispan.client.hotrod.RemoteCache;
 import org.infinispan.client.hotrod.RemoteCacheManager;
@@ -12,7 +12,7 @@ import java.util.Arrays;
 import java.util.Random;
 
 @RestController
-public class Tester {
+public class TestController {
 
     @Autowired
     RemoteCacheManager rcm;
@@ -34,7 +34,6 @@ public class Tester {
         rcm.stop();
         rcm.start();
 
-
         return "SpringCache Manager restarted";
     }
 
@@ -50,7 +49,7 @@ public class Tester {
     public String stats(
             @PathVariable(value = "cache") String cacheName) {
 
-        return rcm.getCache(cacheName).serverStatistics().getStatsMap().toString() + "\n\n\n" + rcm.getCache(cacheName).clientStatistics().getAverageRemoteStoreTime();
+        return rcm.getCache(cacheName).serverStatistics().getStatsMap().toString();
     }
 
     @GetMapping("/api/cache/{cache}/create")
@@ -69,7 +68,7 @@ public class Tester {
         //rcm.administration().getOrCreateCache(cacheName, config);
         rcm.administration().getOrCreateCache(cacheName, new XMLStringConfiguration(config.toXMLString()));
 */
-        return rcm.getCache(cacheName).serverStatistics().getStatsMap().toString();
+        return "ok";
     }
 
 

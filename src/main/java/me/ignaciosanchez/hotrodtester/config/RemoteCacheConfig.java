@@ -1,4 +1,4 @@
-package me.ignaciosanchez.hotrodtester.datagrid;
+package me.ignaciosanchez.hotrodtester.config;
 
 import org.infinispan.client.hotrod.ProtocolVersion;
 import org.infinispan.client.hotrod.RemoteCacheManager;
@@ -7,12 +7,9 @@ import org.infinispan.client.hotrod.configuration.NearCacheMode;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.EnableMBeanExport;
-import org.springframework.jmx.support.RegistrationPolicy;
 
 @Configuration
-//@EnableMBeanExport(registration = RegistrationPolicy.REPLACE_EXISTING)
-public class Config {
+public class RemoteCacheConfig {
 
     @Value("${datagrid.host}")
     private String host;
