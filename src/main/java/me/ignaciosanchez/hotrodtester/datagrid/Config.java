@@ -41,7 +41,7 @@ public class Config {
     public RemoteCacheManager infinispanCacheManager() {
 
         ConfigurationBuilder builder = new ConfigurationBuilder();
-        builder.statistics().jmxEnable()
+        builder.statistics().enable()
                 .version(ProtocolVersion.parseVersion(protocol))
                 .addServer()
                 .host(host)
