@@ -15,9 +15,6 @@ import java.util.Random;
 public class Tester {
 
     @Autowired
-    SpringCache sc;
-
-    @Autowired
     RemoteCacheManager rcm;
 
 
@@ -152,14 +149,6 @@ public class Tester {
 
         return "OK " + numEntries + " " + entryMinkey;
     }
-
-    @GetMapping("/api/spring")
-    public String springGet(@RequestParam(value = "key") String key) {
-
-        return "OK " + sc.getKey(key).toString();
-    }
-
-
 
     // putcron, cron, n, minkey, maxkey
 }

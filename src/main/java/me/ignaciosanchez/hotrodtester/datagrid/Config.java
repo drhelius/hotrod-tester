@@ -32,12 +32,6 @@ public class Config {
     private int nearCacheSize;
 
     @Bean
-    @Primary
-    public CacheManager cacheManager() {
-        return new SpringRemoteCacheManager(infinispanCacheManager());
-    }
-
-    @Bean
     public RemoteCacheManager infinispanCacheManager() {
 
         ConfigurationBuilder config = new ConfigurationBuilder();
