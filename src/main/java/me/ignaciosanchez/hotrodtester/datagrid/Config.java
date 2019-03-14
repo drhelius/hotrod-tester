@@ -42,6 +42,7 @@ public class Config {
 
         ConfigurationBuilder builder = new ConfigurationBuilder();
         builder.statistics().enable()
+                .jmxEnable()
                 .version(ProtocolVersion.parseVersion(protocol))
                 .addServer()
                 .host(host)
