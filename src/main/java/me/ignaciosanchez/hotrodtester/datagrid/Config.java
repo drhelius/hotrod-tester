@@ -11,7 +11,6 @@ import org.springframework.context.annotation.EnableMBeanExport;
 import org.springframework.jmx.support.RegistrationPolicy;
 
 @Configuration
-@EnableMBeanExport(registration = RegistrationPolicy.REPLACE_EXISTING)
 public class Config {
 
     @Value("${datagrid.host}")
@@ -30,7 +29,7 @@ public class Config {
     private int nearCacheSize;
 
     @Bean
-    public RemoteCacheManager test() {
+    public RemoteCacheManager remoteCacheManager() {
 
         ConfigurationBuilder config = new ConfigurationBuilder();
         config.statistics().enable().jmxEnable()
