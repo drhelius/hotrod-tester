@@ -41,7 +41,8 @@ public class Config {
     public RemoteCacheManager infinispanCacheManager() {
 
         ConfigurationBuilder builder = new ConfigurationBuilder();
-        builder.version(ProtocolVersion.parseVersion(protocol))
+        builder.statistics().enable()
+                .version(ProtocolVersion.parseVersion(protocol))
                 .addServer()
                 .host(host)
                 .port(Integer.parseInt(port));
