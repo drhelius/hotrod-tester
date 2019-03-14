@@ -11,7 +11,7 @@ import org.springframework.context.annotation.EnableMBeanExport;
 import org.springframework.jmx.support.RegistrationPolicy;
 
 @Configuration
-git status
+@EnableMBeanExport(registration = RegistrationPolicy.IGNORE_EXISTING)
 public class Config {
 
     @Value("${datagrid.host}")
