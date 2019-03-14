@@ -4,16 +4,14 @@ import org.infinispan.client.hotrod.ProtocolVersion;
 import org.infinispan.client.hotrod.RemoteCacheManager;
 import org.infinispan.client.hotrod.configuration.ConfigurationBuilder;
 import org.infinispan.client.hotrod.configuration.NearCacheMode;
-import org.infinispan.spring.remote.provider.SpringRemoteCacheManager;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.cache.CacheManager;
-import org.springframework.cache.annotation.EnableCaching;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.Primary;
+import org.springframework.context.annotation.EnableMBeanExport;
+import org.springframework.jmx.support.RegistrationPolicy;
 
-@EnableCaching
 @Configuration
+git status
 public class Config {
 
     @Value("${datagrid.host}")
@@ -32,7 +30,7 @@ public class Config {
     private int nearCacheSize;
 
     @Bean
-    public RemoteCacheManager infinispanCacheManager() {
+    public RemoteCacheManager test() {
 
         ConfigurationBuilder config = new ConfigurationBuilder();
         config.statistics().enable().jmxEnable()
