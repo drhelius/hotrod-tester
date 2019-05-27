@@ -2,6 +2,8 @@ package me.ignaciosanchez.hotrodtester.controller;
 
 import org.infinispan.client.hotrod.RemoteCache;
 import org.infinispan.client.hotrod.RemoteCacheManager;
+import org.slf4j.LoggerFactory;
+import org.slf4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -16,6 +18,8 @@ public class TestController {
 
     @Autowired
     RemoteCacheManager rcm;
+
+    Logger logger = LoggerFactory.getLogger(TestController.class);
 
 
     @GetMapping("/api/health")
@@ -96,7 +100,12 @@ public class TestController {
 
             rnd.nextBytes(bytes);
 
-            cache.put(Integer.toString(i), bytes);
+            try {
+                cache.put(Integer.toString(i), bytes);
+            }
+            catch (Exception e) {
+                logger.error("Exception in put", e);
+            }
         }
 
         return "OK " + numEntries + " " + entrySize + " " + entryMinkey;
