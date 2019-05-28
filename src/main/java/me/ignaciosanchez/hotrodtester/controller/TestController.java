@@ -106,7 +106,7 @@ public class TestController {
         for (int i=min; i<(min + numEntries) ; i++) {
 
             rnd.nextBytes(bytes);
-            logger.error("key", key);
+            logger.error(Integer.toString(key));
 
             try {
                 cache.put(Integer.toString(key), bytes);
