@@ -81,7 +81,8 @@ public class TestController {
             @PathVariable(value = "cache") String cacheName,
             @RequestParam(value = "entries") int numEntries,
             @RequestParam(value = "size", required=false) Integer entrySize,
-            @RequestParam(value = "minkey", required=false) Integer entryMinkey) {
+            @RequestParam(value = "minkey", required=false) Integer entryMinkey,
+            @RequestParam(value = "keyrange", required=false) Integer entryKeyRange) {
 
         RemoteCache<String, byte[]> cache = rcm.getCache(cacheName);
 
@@ -93,19 +94,29 @@ public class TestController {
         if (entrySize != null)
             size = entrySize;
 
+        int keyrange = numEntries;
+        if (entryKeyRange != null)
+            keyrange = entryKeyRange;
+
         byte[] bytes = new byte[size];
         Random rnd = new Random();
+
+        int key = min % keyrange;
 
         for (int i=min; i<(min + numEntries) ; i++) {
 
             rnd.nextBytes(bytes);
+            logger.error("key", key);
 
             try {
-                cache.put(Integer.toString(i), bytes);
+                cache.put(Integer.toString(key), bytes);
             }
             catch (Exception e) {
                 logger.error("Exception in put", e);
             }
+
+            key++;
+            key%=keyrange;
         }
 
         return "OK " + numEntries + " " + entrySize + " " + entryMinkey;
