@@ -6,6 +6,8 @@ import org.infinispan.commons.configuration.XMLStringConfiguration;
 import org.infinispan.configuration.cache.CacheMode;
 import org.infinispan.configuration.cache.Configuration;
 import org.infinispan.configuration.cache.ConfigurationBuilder;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -17,6 +19,8 @@ import java.util.Random;
 
 @RestController
 public class Tester {
+
+    Logger logger = LoggerFactory.getLogger(Tester.class);
 
     @Autowired
     RemoteCacheManager rcm;
@@ -100,7 +104,12 @@ public class Tester {
 
             rnd.nextBytes(bytes);
 
-            cache.put(Integer.toString(i), bytes);
+            try {
+                cache.put(Integer.toString(i), bytes);
+            }
+            catch (Exception e) {
+                logger.error("Exception in put", e);
+            }
         }
 
         return "OK " + numEntries + " " + entrySize + " " + entryMinkey;
