@@ -101,14 +101,14 @@ public class TestController {
         byte[] bytes = new byte[size];
         Random rnd = new Random();
 
-        int key = min % keyrange;
+        int key = 0;
 
         for (int i=min; i<(min + numEntries) ; i++) {
 
             rnd.nextBytes(bytes);
 
             try {
-                cache.put(Integer.toString(key), bytes);
+                cache.put(Integer.toString(key + min), bytes);
             }
             catch (Exception e) {
                 logger.error("Exception in put", e);
