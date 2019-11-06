@@ -109,6 +109,7 @@ public class TestController {
 
             try {
                 cache.put(Integer.toString(key + min), bytes);
+                logger.info("put ok" + i);
             }
             catch (Exception e) {
                 logger.error("Exception in put", e);
