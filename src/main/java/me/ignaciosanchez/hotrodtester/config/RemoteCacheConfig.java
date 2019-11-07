@@ -38,6 +38,7 @@ public class RemoteCacheConfig {
             config.nearCache().mode(NearCacheMode.INVALIDATED).maxEntries(nearCacheSize);
         }
 
-        return new RemoteCacheManager(config.build());
+        return new RemoteCacheManager();
+        //return new RemoteCacheManager(config.build());
     }
 }
