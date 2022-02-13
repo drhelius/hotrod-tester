@@ -119,7 +119,7 @@ public class TestController {
             key%=keyrange;
         }
 
-        return "OK " + numEntries + " " + entrySize + " " + entryMinkey;
+        return "OK " + numEntries + " " + size + " " + min;
     }
 
     @GetMapping("/api/cache/{cache}/get")
@@ -138,7 +138,7 @@ public class TestController {
             cache.get(Integer.toString(i));
         }
 
-        return "OK " + numEntries + " " + entryMinkey;
+        return "OK " + numEntries + " " + min;
     }
 
     @GetMapping("/api/cache/{cache}/get-single")
